@@ -4,7 +4,17 @@ const dotenv = require('dotenv')
 
 const db=require('./config/connectDB');
 const router = require('./router/index')
-
+const cors = require('cors');
+var whitelist = ['http://localhost:3000','https://shortlinkappdm.herokuapp.com/'];
+var corsOptions = {
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  }
+}
 dotenv.config()
 
 const port = process.env.PORT || 5000
